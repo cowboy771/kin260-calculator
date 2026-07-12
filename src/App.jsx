@@ -453,7 +453,19 @@ export default function Kin260Calculator() {
         )}
 
         {/* RESULT — two-column layout, referenced from 13:20 Sync app structure */}
-        {result && (
+        {result && (() => {
+          // Which seal the large hero glyph shows — matches whichever
+          // position is currently hovered/tapped, defaulting to the
+          // person's own Birth Kin when nothing is active.
+          const heroSeal =
+            activeKey === 'guide' ? result.oracle.guide :
+            activeKey === 'analog' ? result.oracle.analog :
+            activeKey === 'antipode' ? result.oracle.antipode :
+            activeKey === 'occult' ? result.oracle.occult :
+            activeKey === 'wavespell' ? getSeal(result.wavespell.seal) :
+            result.seal; // 'birthKin' or null (default)
+
+          return (
           <div>
             {/* HEADER ROW — Kin/title left, date picker right (centers on mobile) */}
             <div className="kin260-header-row" style={{
@@ -548,7 +560,7 @@ export default function Kin260Calculator() {
                     transform: activeKey === 'birthKin' ? 'scale(1.05)' : 'scale(1)',
                   }}
                 >
-                  <GlyphPlaceholder seal={result.seal} colorMap={sealColorMap} size={280} />
+                  <GlyphPlaceholder seal={heroSeal} colorMap={sealColorMap} size={280} />
                 </div>
 
                 {/* Reading text — large plain paragraph, no box */}
@@ -572,7 +584,8 @@ export default function Kin260Calculator() {
                         {ACTIVE_LABELS[activeKey]}
                       </div>
                       <p style={{ fontSize: 19, lineHeight: 1.6, color: '#1a1714' }}>
-                        {result.chart[activeKey]}
+                        <strong>{result.chart[activeKey].slice(0, heroSeal.name.length)}</strong>
+                        {result.chart[activeKey].slice(heroSeal.name.length)}
                       </p>
                     </>
                   ) : (
@@ -665,7 +678,8 @@ export default function Kin260Calculator() {
               </div>
             </div>
           </div>
-        )}
+          );
+        })()}
       </div>
     </div>
   );
