@@ -376,7 +376,7 @@ export default function Kin260Calculator() {
               Change your life with<br />the help of ancient<br />knowledge.
             </h1>
             <p style={{
-              fontFamily: "'Helvetica Neue', Arial, sans-serif",
+              fontFamily: "'Cormorant Garamond', 'Georgia', serif",
               fontSize: 15,
               color: '#4a4238',
               marginBottom: 28,
@@ -392,7 +392,7 @@ export default function Kin260Calculator() {
                 maxWidth: 280,
                 padding: '12px 16px',
                 fontSize: 15,
-                fontFamily: "'Helvetica Neue', Arial, sans-serif",
+                fontFamily: "'Cormorant Garamond', 'Georgia', serif",
                 border: 'none',
                 borderBottom: `1px solid #1a171444`,
                 background: 'transparent',
@@ -408,7 +408,7 @@ export default function Kin260Calculator() {
                   padding: '16px 40px',
                   fontSize: 14,
                   fontWeight: 500,
-                  fontFamily: "'Helvetica Neue', Arial, sans-serif",
+                  fontFamily: "'Cormorant Garamond', 'Georgia', serif",
                   background: '#1a1714',
                   color: COLORS.cream,
                   border: 'none',
@@ -442,7 +442,7 @@ export default function Kin260Calculator() {
                   color: '#8a8076',
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  fontFamily: "'Helvetica Neue', Arial, sans-serif",
+                  fontFamily: "'Cormorant Garamond', 'Georgia', serif",
                   marginBottom: 4,
                 }}>
                   Kin {result.kin}
@@ -464,7 +464,7 @@ export default function Kin260Calculator() {
                 padding: '10px 18px',
                 border: `1px solid #1a171422`,
                 borderRadius: 999,
-                fontFamily: "'Helvetica Neue', Arial, sans-serif",
+                fontFamily: "'Cormorant Garamond', 'Georgia', serif",
               }}>
                 <span style={{ fontSize: 14, color: '#4a4238' }}>Birth date:</span>
                 <input
@@ -583,7 +583,7 @@ export default function Kin260Calculator() {
                 borderRadius: 8,
                 padding: 24,
                 minHeight: 140,
-                fontFamily: "'Helvetica Neue', Arial, sans-serif",
+                fontFamily: "'Cormorant Garamond', 'Georgia', serif",
               }}>
                 {activeKey ? (
                   <ChartSection
@@ -609,7 +609,7 @@ export default function Kin260Calculator() {
                   border: `1px solid #1a171418`,
                   borderRadius: 8,
                   padding: 24,
-                  fontFamily: "'Helvetica Neue', Arial, sans-serif",
+                  fontFamily: "'Cormorant Garamond', 'Georgia', serif",
                   cursor: 'pointer',
                 }}
               >
@@ -692,7 +692,7 @@ function GlyphPlaceholder({ seal, colorMap, size = 56 }) {
       justifyContent: 'center',
       color: '#fff',
       fontWeight: 500,
-      fontFamily: "'Helvetica Neue', Arial, sans-serif",
+      fontFamily: "'Cormorant Garamond', 'Georgia', serif",
       fontSize: size * 0.3,
       flexShrink: 0,
     }}>
@@ -724,7 +724,7 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
         letterSpacing: '0.06em',
         textTransform: 'uppercase',
         marginBottom: 8,
-        fontFamily: "'Helvetica Neue', Arial, sans-serif",
+        fontFamily: "'Cormorant Garamond', 'Georgia', serif",
       }}>
         {label}
       </div>
@@ -741,7 +741,7 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
         color: '#1a1714',
         marginTop: 8,
         lineHeight: 1.25,
-        fontFamily: "'Helvetica Neue', Arial, sans-serif",
+        fontFamily: "'Cormorant Garamond', 'Georgia', serif",
       }}>
         {seal.name}
       </div>
