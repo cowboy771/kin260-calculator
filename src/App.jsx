@@ -666,8 +666,8 @@ function GlyphPlaceholder({ seal, colorMap, size = 56 }) {
         style={{
           width: size,
           height: size,
-          borderRadius: '50%',
-          objectFit: 'cover',
+          borderRadius: size > 60 ? 16 : 10, // soft square corners, scales with hero vs small size
+          objectFit: 'contain', // show the whole glyph, never crop it
           flexShrink: 0,
           display: 'block',
         }}
@@ -681,7 +681,7 @@ function GlyphPlaceholder({ seal, colorMap, size = 56 }) {
     <div style={{
       width: size,
       height: size,
-      borderRadius: '50%',
+      borderRadius: size > 60 ? 16 : 10,
       background: colorMap[seal.color],
       display: 'flex',
       alignItems: 'center',
@@ -725,7 +725,7 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
         {label}
       </div>
       <div style={{
-        borderRadius: '50%',
+        borderRadius: 12,
         boxShadow: active ? `0 0 0 3px ${colorMap[seal.color]}55` : 'none',
         transition: 'box-shadow 0.15s ease',
       }}>
