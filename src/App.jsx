@@ -602,7 +602,7 @@ export default function Kin260Calculator() {
                     </>
                   ) : (
                     <p style={{ fontSize: 16, color: '#1a1714', fontStyle: 'italic' }}>
-                      Hover or tap a glyph to read its meaning.
+                      {supportsHover ? 'Hover over a glyph to read its meaning.' : 'Tap a glyph to read its meaning.'}
                     </p>
                   )}
                 </div>
