@@ -356,7 +356,7 @@ export default function Kin260Calculator() {
 
   return (
     <div style={{
-      fontFamily: "'Georgia', 'Playfair Display', serif",
+      fontFamily: "'Cormorant Garamond', 'Georgia', serif",
       background: COLORS.cream,
       minHeight: '100vh',
       padding: '40px 24px 80px',
