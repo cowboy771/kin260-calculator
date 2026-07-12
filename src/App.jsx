@@ -519,8 +519,8 @@ export default function Kin260Calculator() {
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr 1fr',
                   gridTemplateRows: 'auto auto auto',
-                  gap: 0,
-                  maxWidth: 300,
+                  gap: 2,
+                  maxWidth: 340,
                 }}>
                   <div />
                   <CrossCard
