@@ -261,6 +261,13 @@ function capitalize(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+function toneSealTitle(toneName, sealName) {
+  // Correct Dreamspell order is Colour + Tone + Seal name, e.g.
+  // "Blue Cosmic Night" — not Tone + full Seal name ("Cosmic Blue Night").
+  const [colour, ...rest] = sealName.split(' ');
+  return `${colour} ${toneName} ${rest.join(' ')}`;
+}
+
 function generateChartText(kin, sealNum, toneNum, oracle, wavespell) {
   const seal = getSeal(sealNum);
   const toneName = TONES.find(t => t.n === toneNum).name;
@@ -279,7 +286,7 @@ function generateChartText(kin, sealNum, toneNum, oracle, wavespell) {
   const occultTraits = SEAL_TRAITS[occultSeal.name];
 
   return {
-    header: `Kin ${kin} - ${toneName} ${seal.name}`,
+    header: `Kin ${kin} - ${toneSealTitle(toneName, seal.name)}`,
     birthKin: `${seal.name}. ${capitalize(traits.coreLine)}, ${clause}. This is the structure underneath everything else in the chart.`,
     guide: `${guideSeal.name}. The direction back to yourself when you've drifted. Its signature: ${guideTraits.giftLine}.`,
     analog: `${analogSeal.name}. What comes without resistance. Access to ${analogTraits.giftLine} requires no struggle here.`,
@@ -446,7 +453,7 @@ export default function Kin260Calculator() {
                   color: sealColorMap[result.seal.color],
                   lineHeight: 1.1,
                 }}>
-                  {result.tone.name} {result.seal.name}
+                  {toneSealTitle(result.tone.name, result.seal.name)}
                 </h2>
               </div>
 
