@@ -602,16 +602,42 @@ export default function Kin260Calculator() {
                   />
                   <div />
                 </div>
+
+                {/* Wavespell — plain text directly under the cross, no box */}
+                <div
+                  onMouseEnter={supportsHover ? () => setActiveKey('wavespell') : undefined}
+                  onMouseLeave={supportsHover ? () => setActiveKey(null) : undefined}
+                  onClick={() => setActiveKey(activeKey === 'wavespell' ? null : 'wavespell')}
+                  style={{
+                    marginTop: 20,
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+                  }}
+                >
+                  <span style={{
+                    fontSize: 11,
+                    color: '#1a1714',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
+                    fontStyle: 'italic',
+                  }}>
+                    Wavespell
+                  </span>
+                  <span style={{ fontSize: 14, color: '#1a1714', marginLeft: 8 }}>
+                    {getSeal(result.wavespell.seal).name} · #{result.wavespell.number}
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* BOTTOM ROW — hover info panel (left) + stats panel (right) */}
+            {/* BOTTOM ROW — dynamic hover/tap info panel */}
             <div style={{
               display: 'flex',
               flexWrap: 'wrap',
               gap: 20,
             }}>
-              {/* LEFT — dynamic hover/tap info panel */}
               <div style={{
                 flex: '1 1 320px',
                 background: '#faf8f4',
@@ -633,24 +659,6 @@ export default function Kin260Calculator() {
                   </p>
                 )}
               </div>
-
-              {/* RIGHT — stats panel: Wavespell confirmed, Moon/Year flagged as not yet built */}
-              <div
-                onMouseEnter={supportsHover ? () => setActiveKey('wavespell') : undefined}
-                onMouseLeave={supportsHover ? () => setActiveKey(null) : undefined}
-                onClick={() => setActiveKey(activeKey === 'wavespell' ? null : 'wavespell')}
-                style={{
-                  flex: '1 1 240px',
-                  background: '#faf8f4',
-                  border: `1px solid #1a171418`,
-                  borderRadius: 8,
-                  padding: 24,
-                  fontFamily: "'Cormorant Garamond', 'Georgia', serif",
-                  cursor: 'pointer',
-                }}
-              >
-                <StatRow label="Wavespell" value={`${getSeal(result.wavespell.seal).name} · #${result.wavespell.number}`} valueColor={sealColorMap[getSeal(result.wavespell.seal).color]} last />
-              </div>
             </div>
           </div>
         )}
@@ -659,31 +667,8 @@ export default function Kin260Calculator() {
   );
 }
 
-function StatRow({ label, value, valueColor, muted, last }) {
-  return (
-    <div style={{ marginBottom: last ? 0 : 16 }}>
-      <div style={{
-        fontSize: 10,
-        color: '#1a1714',
-        letterSpacing: '0.08em',
-        textTransform: 'uppercase',
-        fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
-        fontStyle: 'italic',
-        marginBottom: 3,
-      }}>
-        {label}
-      </div>
-      <div style={{
-        fontSize: 15,
-        fontWeight: muted ? 400 : 500,
-        fontStyle: muted ? 'italic' : 'normal',
-        color: muted ? '#a89e90' : (valueColor || '#1a1714'),
-      }}>
-        {value}
-      </div>
-    </div>
-  );
-}
+// (StatRow component removed — Wavespell now renders as plain text
+// directly under the cross grid instead of a boxed stats panel)
 
 const ACTIVE_LABELS = {
   birthKin: 'Birth Kin',
