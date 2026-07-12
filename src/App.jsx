@@ -625,7 +625,7 @@ export default function Kin260Calculator() {
                   <ChartSection
                     label={ACTIVE_LABELS[activeKey]}
                     text={result.chart[activeKey]}
-                    color={activeKey === 'birthKin' ? '#1a1714' : activeKey === 'wavespell' ? COLORS.jungle : COLORS.cobalt}
+                    color="#1a1714"
                   />
                 ) : (
                   <p style={{ fontSize: 13, color: '#8a8076', fontStyle: 'italic' }}>
@@ -664,7 +664,7 @@ function StatRow({ label, value, valueColor, muted, last }) {
     <div style={{ marginBottom: last ? 0 : 16 }}>
       <div style={{
         fontSize: 10,
-        color: '#8a8076',
+        color: '#1a1714',
         letterSpacing: '0.08em',
         textTransform: 'uppercase',
         fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
@@ -758,7 +758,7 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
     >
       <div style={{
         fontSize: 10,
-        color: '#8a8076',
+        color: '#1a1714',
         letterSpacing: '0.06em',
         textTransform: 'uppercase',
         marginBottom: 8,
