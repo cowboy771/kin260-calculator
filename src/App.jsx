@@ -613,9 +613,7 @@ export default function Kin260Calculator() {
                   cursor: 'pointer',
                 }}
               >
-                <StatRow label="Wavespell" value={`${getSeal(result.wavespell.seal).name} · #${result.wavespell.number}`} valueColor={sealColorMap[getSeal(result.wavespell.seal).color]} />
-                <StatRow label="Moon" value="Not yet built — needs 13 Moon calendar" muted />
-                <StatRow label="Year" value="Not yet built — needs Year-bearer formula" muted last />
+                <StatRow label="Wavespell" value={`${getSeal(result.wavespell.seal).name} · #${result.wavespell.number}`} valueColor={sealColorMap[getSeal(result.wavespell.seal).color]} last />
               </div>
             </div>
           </div>
