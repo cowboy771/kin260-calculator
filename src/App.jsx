@@ -383,6 +383,7 @@ export default function Kin260Calculator() {
             .kin260-main-row {
               flex-direction: column;
               align-items: center !important;
+              gap: 16px !important;
             }
             .kin260-cross-wrap {
               display: flex;
@@ -508,7 +509,7 @@ export default function Kin260Calculator() {
                 gap: 8,
                 padding: '10px 18px',
                 border: `1px solid #1a171422`,
-                borderRadius: 999,
+                borderRadius: 6,
                 fontFamily: "'Cormorant Garamond', 'Georgia', serif",
               }}>
                 <span style={{ fontSize: 14, color: '#1a1714' }}>Birth date:</span>
@@ -789,7 +790,8 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
         letterSpacing: '0.06em',
         textTransform: 'uppercase',
         marginBottom: 8,
-        fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+        fontStyle: 'italic',
+        fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
       }}>
         {label}
       </div>
@@ -803,11 +805,10 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
       <div style={{
         fontSize: large ? 15 : 11,
         fontWeight: 500,
-        fontStyle: 'italic',
         color: '#1a1714',
         marginTop: 8,
         lineHeight: 1.25,
-        fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
+        fontFamily: "'Cormorant Garamond', 'Georgia', serif",
       }}>
         {seal.name}
       </div>
