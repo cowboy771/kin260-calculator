@@ -509,7 +509,7 @@ export default function Kin260Calculator() {
                   transition: 'transform 0.15s ease',
                   transform: activeKey === 'birthKin' ? 'scale(1.05)' : 'scale(1)',
                 }}>
-                  <GlyphPlaceholder seal={result.seal} colorMap={sealColorMap} size={230} />
+                  <GlyphPlaceholder seal={result.seal} colorMap={sealColorMap} size={280} />
                 </div>
               </div>
 
@@ -519,8 +519,8 @@ export default function Kin260Calculator() {
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr 1fr',
                   gridTemplateRows: 'auto auto auto',
-                  gap: 2,
-                  maxWidth: 340,
+                  gap: 0,
+                  maxWidth: 300,
                 }}>
                   <div />
                   <CrossCard
@@ -728,7 +728,7 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
         boxShadow: active ? `0 0 0 3px ${colorMap[seal.color]}55` : 'none',
         transition: 'box-shadow 0.15s ease',
       }}>
-        <GlyphPlaceholder seal={seal} colorMap={colorMap} size={large ? 100 : 64} />
+        <GlyphPlaceholder seal={seal} colorMap={colorMap} size={large ? 130 : 84} />
       </div>
       <div style={{
         fontSize: large ? 15 : 11,
