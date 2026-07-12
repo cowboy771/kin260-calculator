@@ -468,7 +468,7 @@ export default function Kin260Calculator() {
                 <div style={{
                   fontSize: 20,
                   fontWeight: 700,
-                  color: '#8a8076',
+                  color: '#1a1714',
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   fontFamily: "'Cormorant Garamond', 'Georgia', serif",
@@ -481,7 +481,7 @@ export default function Kin260Calculator() {
                   fontWeight: 400,
                   fontStyle: 'italic',
                   fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
-                  color: sealColorMap[result.seal.color],
+                  color: '#1a1714',
                   lineHeight: 1.1,
                 }}>
                   {toneSealTitle(result.tone.name, result.seal.name)}
@@ -578,7 +578,7 @@ export default function Kin260Calculator() {
                     onTap={() => setActiveKey(activeKey === 'antipode' ? null : 'antipode')}
                   />
                   <CrossCard
-                    label="Destiny" seal={result.seal} colorMap={sealColorMap} COLORS={COLORS}
+                    label="Birth Kin" seal={result.seal} colorMap={sealColorMap} COLORS={COLORS}
                     supportsHover={supportsHover}
                     active={activeKey === 'birthKin'}
                     onEnter={() => setActiveKey('birthKin')} onLeave={() => setActiveKey(null)}
@@ -776,10 +776,11 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
       <div style={{
         fontSize: large ? 15 : 11,
         fontWeight: 500,
+        fontStyle: 'italic',
         color: '#1a1714',
         marginTop: 8,
         lineHeight: 1.25,
-        fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+        fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
       }}>
         {seal.name}
       </div>
