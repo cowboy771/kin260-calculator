@@ -585,6 +585,14 @@ export default function Kin260Calculator() {
                       }}>
                         {ACTIVE_LABELS[activeKey]}
                       </div>
+                      <p style={{
+                        fontSize: 14,
+                        color: '#6b6258',
+                        fontStyle: 'italic',
+                        marginBottom: 10,
+                      }}>
+                        {POSITION_DESCRIPTIONS[activeKey]}
+                      </p>
                       <p style={{ fontSize: 19, lineHeight: 1.6, color: '#1a1714' }}>
                         <strong>{result.chart[activeKey].slice(0, heroSeal.name.length)}</strong>
                         {result.chart[activeKey].slice(heroSeal.name.length)}
@@ -697,6 +705,19 @@ const ACTIVE_LABELS = {
   antipode: 'Antipode',
   occult: 'Occult',
   wavespell: 'Wavespell',
+};
+
+// Generic meaning of each position itself, independent of which Seal
+// occupies it — from the Placement Library (Birth Kin/Guide/Analog/
+// Antipode/Occult/Wavespell), shown as a brief line before the
+// Seal-specific reading.
+const POSITION_DESCRIPTIONS = {
+  birthKin: 'Your core identity and life path.',
+  guide: 'The energy that guides you back to yourself.',
+  analog: 'The energy that naturally supports and stabilises you.',
+  antipode: 'The energy that challenges and triggers you toward growth.',
+  occult: 'The unconscious power source running underneath everything.',
+  wavespell: 'The larger story.',
 };
 
 function GlyphPlaceholder({ seal, colorMap, size = 56 }) {
