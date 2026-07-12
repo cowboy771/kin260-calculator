@@ -797,7 +797,7 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
       </div>
       <div style={{
         borderRadius: 0,
-        boxShadow: active ? '0 0 0 3px #1a1714' : 'none',
+        boxShadow: active ? '0 0 0 2px #1a1714' : 'none',
         transition: 'box-shadow 0.15s ease',
       }}>
         <GlyphPlaceholder seal={seal} colorMap={colorMap} size={large ? 130 : 84} />
