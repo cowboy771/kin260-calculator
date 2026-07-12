@@ -506,10 +506,10 @@ export default function Kin260Calculator() {
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 8,
-                padding: '10px 18px',
-                border: `1px solid #1a171422`,
-                borderRadius: 6,
+                gap: 6,
+                padding: '6px 10px',
+                border: `1px solid #1a1714`,
+                borderRadius: 0,
                 fontFamily: "'Cormorant Garamond', 'Georgia', serif",
               }}>
                 <span style={{ fontSize: 14, color: '#1a1714' }}>Birth date:</span>
@@ -797,7 +797,7 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
       </div>
       <div style={{
         borderRadius: 8,
-        boxShadow: active ? `0 0 0 3px ${colorMap[seal.color]}55` : 'none',
+        boxShadow: active ? '0 0 0 3px #1a1714' : 'none',
         transition: 'box-shadow 0.15s ease',
       }}>
         <GlyphPlaceholder seal={seal} colorMap={colorMap} size={large ? 130 : 84} />
