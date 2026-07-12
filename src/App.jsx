@@ -796,7 +796,7 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
         {label}
       </div>
       <div style={{
-        borderRadius: 8,
+        borderRadius: 0,
         boxShadow: active ? '0 0 0 3px #1a1714' : 'none',
         transition: 'box-shadow 0.15s ease',
       }}>
