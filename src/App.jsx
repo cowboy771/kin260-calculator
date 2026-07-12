@@ -363,6 +363,24 @@ export default function Kin260Calculator() {
       color: '#1a1714',
     }}>
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
+        <style>{`
+          @media (max-width: 700px) {
+            .kin260-header-row {
+              flex-direction: column;
+              align-items: center !important;
+              text-align: center;
+            }
+            .kin260-main-row {
+              flex-direction: column;
+              align-items: center !important;
+            }
+            .kin260-cross-wrap {
+              display: flex;
+              justify-content: center;
+              width: 100%;
+            }
+          }
+        `}</style>
 
         {!result && (
           <div style={{ textAlign: 'center', maxWidth: 480, margin: '40px auto' }}>
@@ -427,8 +445,8 @@ export default function Kin260Calculator() {
         {/* RESULT — two-column layout, referenced from 13:20 Sync app structure */}
         {result && (
           <div>
-            {/* HEADER ROW — Kin/title left, date picker right */}
-            <div style={{
+            {/* HEADER ROW — Kin/title left, date picker right (centers on mobile) */}
+            <div className="kin260-header-row" style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'flex-start',
@@ -484,8 +502,8 @@ export default function Kin260Calculator() {
               </div>
             </div>
 
-            {/* MAIN ROW — hero glyph left, cross grid right */}
-            <div style={{
+            {/* MAIN ROW — hero glyph left, cross grid right (centers on mobile) */}
+            <div className="kin260-main-row" style={{
               display: 'flex',
               flexWrap: 'wrap',
               gap: 48,
@@ -521,7 +539,7 @@ export default function Kin260Calculator() {
               </div>
 
               {/* RIGHT — cross grid: Guide / Antipode-Destiny-Analog / Occult */}
-              <div style={{ flex: '1 1 280px' }}>
+              <div className="kin260-cross-wrap" style={{ flex: '1 1 280px' }}>
                 <div style={{
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr 1fr',
