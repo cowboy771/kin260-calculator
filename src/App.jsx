@@ -509,7 +509,7 @@ export default function Kin260Calculator() {
                   transition: 'transform 0.15s ease',
                   transform: activeKey === 'birthKin' ? 'scale(1.05)' : 'scale(1)',
                 }}>
-                  <GlyphPlaceholder seal={result.seal} colorMap={sealColorMap} size={200} />
+                  <GlyphPlaceholder seal={result.seal} colorMap={sealColorMap} size={230} />
                 </div>
               </div>
 
@@ -519,8 +519,8 @@ export default function Kin260Calculator() {
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr 1fr',
                   gridTemplateRows: 'auto auto auto',
-                  gap: 8,
-                  maxWidth: 360,
+                  gap: 2,
+                  maxWidth: 340,
                 }}>
                   <div />
                   <CrossCard
@@ -666,8 +666,7 @@ function GlyphPlaceholder({ seal, colorMap, size = 56 }) {
         style={{
           width: size,
           height: size,
-          borderRadius: size > 60 ? 16 : 10, // soft square corners, scales with hero vs small size
-          objectFit: 'contain', // show the whole glyph, never crop it
+          objectFit: 'contain', // show the whole glyph, including its own outline, uncropped
           flexShrink: 0,
           display: 'block',
         }}
@@ -681,7 +680,7 @@ function GlyphPlaceholder({ seal, colorMap, size = 56 }) {
     <div style={{
       width: size,
       height: size,
-      borderRadius: size > 60 ? 16 : 10,
+      borderRadius: 8,
       background: colorMap[seal.color],
       display: 'flex',
       alignItems: 'center',
@@ -725,11 +724,11 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
         {label}
       </div>
       <div style={{
-        borderRadius: 12,
+        borderRadius: 8,
         boxShadow: active ? `0 0 0 3px ${colorMap[seal.color]}55` : 'none',
         transition: 'box-shadow 0.15s ease',
       }}>
-        <GlyphPlaceholder seal={seal} colorMap={colorMap} size={large ? 88 : 52} />
+        <GlyphPlaceholder seal={seal} colorMap={colorMap} size={large ? 100 : 64} />
       </div>
       <div style={{
         fontSize: large ? 15 : 11,
