@@ -408,7 +408,7 @@ export default function Kin260Calculator() {
             <p style={{
               fontFamily: "'Cormorant Garamond', 'Georgia', serif",
               fontSize: 15,
-              color: '#4a4238',
+              color: '#1a1714',
               marginBottom: 28,
             }}>
               Enter your birth date to discover your codes.
@@ -511,7 +511,7 @@ export default function Kin260Calculator() {
                 borderRadius: 999,
                 fontFamily: "'Cormorant Garamond', 'Georgia', serif",
               }}>
-                <span style={{ fontSize: 14, color: '#4a4238' }}>Birth date:</span>
+                <span style={{ fontSize: 14, color: '#1a1714' }}>Birth date:</span>
                 <input
                   type="date"
                   value={birthDate}
@@ -575,7 +575,8 @@ export default function Kin260Calculator() {
                   {activeKey ? (
                     <>
                       <div style={{
-                        fontSize: 13,
+                        fontSize: 22,
+                        fontWeight: 700,
                         letterSpacing: '0.08em',
                         textTransform: 'uppercase',
                         fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
@@ -586,10 +587,10 @@ export default function Kin260Calculator() {
                         {ACTIVE_LABELS[activeKey]}
                       </div>
                       <p style={{
-                        fontSize: 14,
-                        color: '#6b6258',
+                        fontSize: 22,
+                        color: '#1a1714',
                         fontStyle: 'italic',
-                        marginBottom: 10,
+                        marginBottom: 14,
                       }}>
                         {POSITION_DESCRIPTIONS[activeKey]}
                       </p>
@@ -599,7 +600,7 @@ export default function Kin260Calculator() {
                       </p>
                     </>
                   ) : (
-                    <p style={{ fontSize: 16, color: '#8a8076', fontStyle: 'italic' }}>
+                    <p style={{ fontSize: 16, color: '#1a1714', fontStyle: 'italic' }}>
                       Hover or tap a glyph to read its meaning.
                     </p>
                   )}
