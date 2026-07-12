@@ -466,9 +466,10 @@ export default function Kin260Calculator() {
             }}>
               <div>
                 <div style={{
-                  fontSize: 12,
+                  fontSize: 20,
+                  fontWeight: 700,
                   color: '#8a8076',
-                  letterSpacing: '0.1em',
+                  letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   fontFamily: "'Cormorant Garamond', 'Georgia', serif",
                   marginBottom: 4,
@@ -478,6 +479,8 @@ export default function Kin260Calculator() {
                 <h2 style={{
                   fontSize: 32,
                   fontWeight: 400,
+                  fontStyle: 'italic',
+                  fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
                   color: sealColorMap[result.seal.color],
                   lineHeight: 1.1,
                 }}>
@@ -664,6 +667,8 @@ function StatRow({ label, value, valueColor, muted, last }) {
         color: '#8a8076',
         letterSpacing: '0.08em',
         textTransform: 'uppercase',
+        fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
+        fontStyle: 'italic',
         marginBottom: 3,
       }}>
         {label}
@@ -790,6 +795,8 @@ function ChartSection({ label, text, color }) {
         fontWeight: 600,
         letterSpacing: '0.08em',
         textTransform: 'uppercase',
+        fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
+        fontStyle: 'italic',
         color: color,
         marginBottom: 5,
       }}>
