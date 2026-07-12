@@ -522,18 +522,13 @@ export default function Kin260Calculator() {
               gap: 48,
               marginBottom: 40,
             }}>
-              {/* LEFT — hero Birth Kin glyph */}
+              {/* LEFT — hero Birth Kin glyph + large plain-text reading below it */}
               <div
-                onMouseEnter={supportsHover ? () => setActiveKey('birthKin') : undefined}
-                onMouseLeave={supportsHover ? () => setActiveKey(null) : undefined}
-                onClick={() => setActiveKey(activeKey === 'birthKin' ? null : 'birthKin')}
                 style={{
                   flex: '1 1 260px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
                 }}
               >
                 <div style={{
@@ -543,11 +538,48 @@ export default function Kin260Calculator() {
                   background: COLORS.amber,
                   marginBottom: 24,
                 }} />
-                <div style={{
-                  transition: 'transform 0.15s ease',
-                  transform: activeKey === 'birthKin' ? 'scale(1.05)' : 'scale(1)',
-                }}>
+                <div
+                  onMouseEnter={supportsHover ? () => setActiveKey('birthKin') : undefined}
+                  onMouseLeave={supportsHover ? () => setActiveKey(null) : undefined}
+                  onClick={() => setActiveKey(activeKey === 'birthKin' ? null : 'birthKin')}
+                  style={{
+                    cursor: 'pointer',
+                    transition: 'transform 0.15s ease',
+                    transform: activeKey === 'birthKin' ? 'scale(1.05)' : 'scale(1)',
+                  }}
+                >
                   <GlyphPlaceholder seal={result.seal} colorMap={sealColorMap} size={280} />
+                </div>
+
+                {/* Reading text — large plain paragraph, no box */}
+                <div style={{
+                  marginTop: 28,
+                  maxWidth: 380,
+                  textAlign: 'center',
+                  fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+                }}>
+                  {activeKey ? (
+                    <>
+                      <div style={{
+                        fontSize: 13,
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                        fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
+                        fontStyle: 'italic',
+                        color: '#1a1714',
+                        marginBottom: 8,
+                      }}>
+                        {ACTIVE_LABELS[activeKey]}
+                      </div>
+                      <p style={{ fontSize: 19, lineHeight: 1.6, color: '#1a1714' }}>
+                        {result.chart[activeKey]}
+                      </p>
+                    </>
+                  ) : (
+                    <p style={{ fontSize: 16, color: '#8a8076', fontStyle: 'italic' }}>
+                      Hover or tap a glyph to read its meaning.
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -603,13 +635,14 @@ export default function Kin260Calculator() {
                   <div />
                 </div>
 
-                {/* Wavespell — plain text directly under the cross, no box */}
+                {/* Wavespell — plain text directly under the cross, centered to match grid width */}
                 <div
                   onMouseEnter={supportsHover ? () => setActiveKey('wavespell') : undefined}
                   onMouseLeave={supportsHover ? () => setActiveKey(null) : undefined}
                   onClick={() => setActiveKey(activeKey === 'wavespell' ? null : 'wavespell')}
                   style={{
                     marginTop: 20,
+                    maxWidth: 380,
                     textAlign: 'center',
                     cursor: 'pointer',
                     fontFamily: "'Cormorant Garamond', 'Georgia', serif",
@@ -629,35 +662,6 @@ export default function Kin260Calculator() {
                     {getSeal(result.wavespell.seal).name} · #{result.wavespell.number}
                   </span>
                 </div>
-              </div>
-            </div>
-
-            {/* BOTTOM ROW — dynamic hover/tap info panel */}
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 20,
-            }}>
-              <div style={{
-                flex: '1 1 320px',
-                background: '#faf8f4',
-                border: `1px solid #1a171418`,
-                borderRadius: 8,
-                padding: 24,
-                minHeight: 140,
-                fontFamily: "'Cormorant Garamond', 'Georgia', serif",
-              }}>
-                {activeKey ? (
-                  <ChartSection
-                    label={ACTIVE_LABELS[activeKey]}
-                    text={result.chart[activeKey]}
-                    color="#1a1714"
-                  />
-                ) : (
-                  <p style={{ fontSize: 13, color: '#8a8076', fontStyle: 'italic' }}>
-                    Hover or tap a glyph above to read its meaning.
-                  </p>
-                )}
               </div>
             </div>
           </div>
@@ -773,27 +777,8 @@ function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLe
   );
 }
 
-function ChartSection({ label, text, color }) {
-  return (
-    <div style={{ marginBottom: 22 }}>
-      <div style={{
-        fontSize: 10,
-        fontWeight: 600,
-        letterSpacing: '0.08em',
-        textTransform: 'uppercase',
-        fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
-        fontStyle: 'italic',
-        color: color,
-        marginBottom: 5,
-      }}>
-        {label}
-      </div>
-      <div style={{ fontSize: 15, lineHeight: 1.65, color: '#2a2622' }}>
-        {text}
-      </div>
-    </div>
-  );
-}
+// (ChartSection component removed — the reading text now renders
+// directly under the hero glyph as plain paragraph text instead)
 
 // (OraclePosition component removed — replaced by CrossCard for the
 // cross layout matching the 13:20 Sync app structure)
