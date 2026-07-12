@@ -328,6 +328,16 @@ export default function Kin260Calculator() {
   const [result, setResult] = useState(null);
   const [activeKey, setActiveKey] = useState(null); // which position is currently hovered/tapped
 
+  // Only wire up hover behavior for devices that actually have a mouse.
+  // On touch devices, a hover handler makes the first tap "arm" the hover
+  // state instead of firing the click — causing the classic double-tap
+  // bug. Detecting real hover support and skipping it on touch fixes that.
+  const [supportsHover, setSupportsHover] = useState(false);
+  React.useEffect(() => {
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+    setSupportsHover(mq.matches);
+  }, []);
+
   const handleCalculate = () => {
     const { kin, sealNum, toneNum, dayDiff } = calculateKin(birthDate);
     const seal = getSeal(sealNum);
@@ -511,8 +521,8 @@ export default function Kin260Calculator() {
             }}>
               {/* LEFT — hero Birth Kin glyph */}
               <div
-                onMouseEnter={() => setActiveKey('birthKin')}
-                onMouseLeave={() => setActiveKey(null)}
+                onMouseEnter={supportsHover ? () => setActiveKey('birthKin') : undefined}
+                onMouseLeave={supportsHover ? () => setActiveKey(null) : undefined}
                 onClick={() => setActiveKey(activeKey === 'birthKin' ? null : 'birthKin')}
                 style={{
                   flex: '1 1 260px',
@@ -544,12 +554,13 @@ export default function Kin260Calculator() {
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr 1fr',
                   gridTemplateRows: 'auto auto auto',
-                  gap: 2,
-                  maxWidth: 340,
+                  gap: 14,
+                  maxWidth: 380,
                 }}>
                   <div />
                   <CrossCard
                     label="Guide" seal={result.oracle.guide} colorMap={sealColorMap} COLORS={COLORS}
+                    supportsHover={supportsHover}
                     active={activeKey === 'guide'}
                     onEnter={() => setActiveKey('guide')} onLeave={() => setActiveKey(null)}
                     onTap={() => setActiveKey(activeKey === 'guide' ? null : 'guide')}
@@ -558,18 +569,21 @@ export default function Kin260Calculator() {
 
                   <CrossCard
                     label="Antipode" seal={result.oracle.antipode} colorMap={sealColorMap} COLORS={COLORS}
+                    supportsHover={supportsHover}
                     active={activeKey === 'antipode'}
                     onEnter={() => setActiveKey('antipode')} onLeave={() => setActiveKey(null)}
                     onTap={() => setActiveKey(activeKey === 'antipode' ? null : 'antipode')}
                   />
                   <CrossCard
                     label="Destiny" seal={result.seal} colorMap={sealColorMap} COLORS={COLORS}
+                    supportsHover={supportsHover}
                     active={activeKey === 'birthKin'}
                     onEnter={() => setActiveKey('birthKin')} onLeave={() => setActiveKey(null)}
                     onTap={() => setActiveKey(activeKey === 'birthKin' ? null : 'birthKin')}
                   />
                   <CrossCard
                     label="Analog" seal={result.oracle.analog} colorMap={sealColorMap} COLORS={COLORS}
+                    supportsHover={supportsHover}
                     active={activeKey === 'analog'}
                     onEnter={() => setActiveKey('analog')} onLeave={() => setActiveKey(null)}
                     onTap={() => setActiveKey(activeKey === 'analog' ? null : 'analog')}
@@ -578,6 +592,7 @@ export default function Kin260Calculator() {
                   <div />
                   <CrossCard
                     label="Occult" seal={result.oracle.occult} colorMap={sealColorMap} COLORS={COLORS}
+                    supportsHover={supportsHover}
                     active={activeKey === 'occult'}
                     onEnter={() => setActiveKey('occult')} onLeave={() => setActiveKey(null)}
                     onTap={() => setActiveKey(activeKey === 'occult' ? null : 'occult')}
@@ -618,8 +633,8 @@ export default function Kin260Calculator() {
 
               {/* RIGHT — stats panel: Wavespell confirmed, Moon/Year flagged as not yet built */}
               <div
-                onMouseEnter={() => setActiveKey('wavespell')}
-                onMouseLeave={() => setActiveKey(null)}
+                onMouseEnter={supportsHover ? () => setActiveKey('wavespell') : undefined}
+                onMouseLeave={supportsHover ? () => setActiveKey(null) : undefined}
                 onClick={() => setActiveKey(activeKey === 'wavespell' ? null : 'wavespell')}
                 style={{
                   flex: '1 1 240px',
@@ -719,11 +734,11 @@ function GlyphPlaceholder({ seal, colorMap, size = 56 }) {
   );
 }
 
-function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLeave, onTap }) {
+function CrossCard({ label, seal, colorMap, COLORS, large, active, onEnter, onLeave, onTap, supportsHover }) {
   return (
     <div
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
+      onMouseEnter={supportsHover ? onEnter : undefined}
+      onMouseLeave={supportsHover ? onLeave : undefined}
       onClick={onTap}
       style={{
         display: 'flex',
