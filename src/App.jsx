@@ -489,7 +489,7 @@ export default function Kin260Calculator() {
                   fontFamily: "'Cormorant Garamond', 'Georgia', serif",
                   marginBottom: 4,
                 }}>
-                  Kin {result.kin}
+                  Kin Number {result.kin}
                 </div>
                 <h2 style={{
                   fontSize: 32,
