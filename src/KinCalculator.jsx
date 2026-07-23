@@ -92,7 +92,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
       padding: '40px 24px 24px',
       color: '#1a1714',
     }}>
-      <div style={{ maxWidth: 900, margin: '0 auto' }}>
+      <div style={{ maxWidth: 900, margin: '0 auto', position: 'relative' }}>
         {!result && (
           <div style={{ textAlign: 'center', maxWidth: 480, margin: '40px auto' }}>
             <h1 style={{
