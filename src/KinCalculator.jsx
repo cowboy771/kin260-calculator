@@ -69,18 +69,37 @@ export default function Kin260Calculator({ initialBirthDate }) {
   // (relative to the wrapper below, which is its offsetParent) so
   // InfoCard can be sized and positioned to sit exactly above it —
   // covering the glyph but leaving the cross grid visible on desktop.
-  // On mobile, where the column stacks to full width, this naturally
-  // gives a full-width anchor too, matching the app.
+  //
+  // Below the already-proven 701px wrap point, we don't trust the
+  // column's own self-reported offsetWidth: a lone flex item sitting
+  // alone on a wrapped row can resolve its width inconsistently
+  // depending on whether flex-grow or an explicit width "wins" in a
+  // given browser. Below that threshold we just force the anchor to
+  // the wrapper's own directly-measured full width instead — the same
+  // reliable measurement/threshold already validated earlier — so the
+  // card is guaranteed full-width and flush-left with no ambiguity.
+  const wrapperRef = useRef(null);
   const heroColumnRef = useRef(null);
   const [anchor, setAnchor] = useState({ left: 0, width: '100%' });
 
   useEffect(() => {
-    const el = heroColumnRef.current;
-    if (!el) return;
-    const measure = () => setAnchor({ left: el.offsetLeft, width: el.offsetWidth });
+    const wrapperEl = wrapperRef.current;
+    const heroEl = heroColumnRef.current;
+    if (!wrapperEl || !heroEl) return;
+
+    const measure = () => {
+      const wrapperWidth = wrapperEl.offsetWidth;
+      if (wrapperWidth < 701) {
+        setAnchor({ left: 0, width: wrapperWidth });
+      } else {
+        setAnchor({ left: heroEl.offsetLeft, width: heroEl.offsetWidth });
+      }
+    };
+
     measure();
     const observer = new ResizeObserver(measure);
-    observer.observe(el);
+    observer.observe(wrapperEl);
+    observer.observe(heroEl);
     return () => observer.disconnect();
   }, [result]);
 
@@ -111,7 +130,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
       padding: '40px 24px 24px',
       color: '#1a1714',
     }}>
-      <div style={{ maxWidth: 900, margin: '0 auto', position: 'relative' }}>
+      <div ref={wrapperRef} style={{ maxWidth: 900, margin: '0 auto', position: 'relative' }}>
         {!result && (
           <div style={{ textAlign: 'center', maxWidth: 480, margin: '40px auto' }}>
             <h1 style={{
