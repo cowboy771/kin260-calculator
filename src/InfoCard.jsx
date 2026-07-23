@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { GlyphPlaceholder } from './OracleDisplay';
 import { POSITION_INFO as DAILY_POSITION_INFO, SEAL_POSITION_TEXT as DAILY_SEAL_POSITION_TEXT } from './lib/dailyInfoContent';
 
@@ -14,6 +14,12 @@ const sealColorMap = {
 // same size so the cards feel like one consistent set.
 const GLYPH_SIZE = 96;
 
+// Same breakpoint OracleDisplay uses to switch from the two-column
+// desktop layout (glyph left, cross right) down to a single stacked
+// column on mobile — kept in sync so the card's behaviour switches
+// at the same point the layout itself does.
+const DESKTOP_BREAKPOINT = '(min-width: 701px)';
+
 export default function InfoCard({
   positionKey,
   seal,
@@ -26,6 +32,16 @@ export default function InfoCard({
   // belongs to, e.g. "Today's Chart" or "Your Chart".
   contextLabel,
 }) {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP_BREAKPOINT);
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
   if (!positionKey || !seal) return null;
 
   const info = positionInfo[positionKey];
@@ -37,11 +53,19 @@ export default function InfoCard({
       style={{
         position: 'fixed',
         inset: 0,
-        background: 'rgba(26, 23, 20, 0.45)',
+        // On mobile this dims the whole screen behind a centred modal,
+        // matching the app exactly. On desktop the overlay stays
+        // invisible — the card reads as a panel floating beside the
+        // glyph rather than a screen-blocking modal — but it still
+        // covers the full viewport so a click anywhere else closes it.
+        background: isDesktop ? 'transparent' : 'rgba(26, 23, 20, 0.45)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: isDesktop ? 'flex-start' : 'center',
         padding: 20,
+        // Roughly aligns with the left glyph column inside the
+        // calculator's centred, max-width: 900px container.
+        paddingLeft: isDesktop ? 'max(20px, calc(50vw - 420px))' : 20,
         zIndex: 200,
       }}
     >
@@ -59,6 +83,7 @@ export default function InfoCard({
           padding: '28px 26px 32px',
           border: '1.2px solid #1a1714',
           borderRadius: 0,
+          boxShadow: isDesktop ? '0 12px 32px rgba(26, 23, 20, 0.22)' : 'none',
         }}
       >
         <button
