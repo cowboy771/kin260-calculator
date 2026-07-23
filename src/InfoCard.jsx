@@ -83,7 +83,7 @@ export default function InfoCard({
         position: 'absolute',
         inset: 0,
         minHeight: '100%',
-        background: 'rgba(26, 23, 20, 0.45)',
+        background: 'transparent',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'flex-start',
