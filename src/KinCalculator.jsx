@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 // ============================================================
 // KIN260 CALCULATOR — v3 — MATH FULLY LOCKED
@@ -64,6 +64,25 @@ export default function Kin260Calculator({ initialBirthDate }) {
   const [result, setResult] = useState(() =>
     initialBirthDate ? computeResult(initialBirthDate) : null
   );
+
+  // Measures the hero glyph column's actual rendered position/width
+  // (relative to the wrapper below, which is its offsetParent) so
+  // InfoCard can be sized and positioned to sit exactly above it —
+  // covering the glyph but leaving the cross grid visible on desktop.
+  // On mobile, where the column stacks to full width, this naturally
+  // gives a full-width anchor too, matching the app.
+  const heroColumnRef = useRef(null);
+  const [anchor, setAnchor] = useState({ left: 0, width: '100%' });
+
+  useEffect(() => {
+    const el = heroColumnRef.current;
+    if (!el) return;
+    const measure = () => setAnchor({ left: el.offsetLeft, width: el.offsetWidth });
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [result]);
 
   const handleCalculate = () => {
     setResult(computeResult(birthDate));
@@ -164,6 +183,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
             chart={result.chart}
             dailyMode
             onPositionSelect={(key, tappedSeal) => setInfoCard({ key, seal: tappedSeal })}
+            heroColumnRef={heroColumnRef}
             headerLeft={
               <div>
                 <div style={{
@@ -200,6 +220,8 @@ export default function Kin260Calculator({ initialBirthDate }) {
             positionInfo={PERSON_POSITION_INFO}
             sealPositionText={PERSON_SEAL_POSITION_TEXT}
             contextLabel="Your Chart"
+            anchorLeft={anchor.left}
+            anchorWidth={anchor.width}
           />
         )}
 

@@ -50,6 +50,16 @@ export default function InfoCard({
   // Small badge above the title making it obvious which chart this card
   // belongs to, e.g. "Today's Chart" or "Your Chart".
   contextLabel,
+  // Optional — the hero glyph column's measured left offset and width
+  // (relative to the same position:relative wrapper this card is
+  // absolutely positioned against). When provided, the card sits
+  // exactly above that column instead of centred across the whole
+  // width — covering the glyph but leaving the cross grid visible on
+  // desktop. On mobile, where that column is full-width, this
+  // naturally makes the card full-width too. Undefined for existing
+  // callers (You/Today in the app) keeps the original centred layout.
+  anchorLeft,
+  anchorWidth,
 }) {
   const cardRef = useRef(null);
 
@@ -76,6 +86,7 @@ export default function InfoCard({
         background: 'rgba(26, 23, 20, 0.45)',
         display: 'flex',
         justifyContent: 'center',
+        alignItems: 'flex-start',
         padding: '20px 20px 60px',
         zIndex: 200,
       }}
@@ -84,9 +95,12 @@ export default function InfoCard({
         ref={cardRef}
         onClick={(e) => e.stopPropagation()}
         style={{
-          marginTop: 24,
-          width: '100%',
-          maxWidth: 380,
+          position: anchorLeft !== undefined ? 'absolute' : 'static',
+          top: anchorLeft !== undefined ? 24 : undefined,
+          left: anchorLeft !== undefined ? anchorLeft : undefined,
+          marginTop: anchorLeft !== undefined ? undefined : 24,
+          width: anchorLeft !== undefined ? anchorWidth : '100%',
+          maxWidth: anchorLeft !== undefined ? anchorWidth : 380,
           maxHeight: '80vh',
           overflowY: 'auto',
           background: '#F5F0E4',

@@ -141,6 +141,12 @@ export default function OracleDisplay({
   // is untouched and keeps the original inline tap-to-reveal behavior.
   dailyMode = false,
   onPositionSelect,
+  // Optional — lets the parent measure the hero glyph column's actual
+  // rendered position/width (via getBoundingClientRect / offsetLeft),
+  // so InfoCard can be sized to sit exactly above it rather than
+  // guessing pixel values. Undefined for every existing caller that
+  // doesn't need this (You/Today pages in the app).
+  heroColumnRef,
 }) {
   const [activeKey, setActiveKey] = useState(null);
   const [supportsHover, setSupportsHover] = useState(false);
@@ -216,7 +222,7 @@ export default function OracleDisplay({
         gap: 48,
         marginBottom: 40,
       }}>
-        <div style={{
+        <div ref={heroColumnRef} style={{
           flex: '1 1 260px',
           display: 'flex',
           flexDirection: 'column',
