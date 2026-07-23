@@ -39,13 +39,16 @@ import InfoCard from './InfoCard';
 import { POSITION_INFO as PERSON_POSITION_INFO, SEAL_POSITION_TEXT as PERSON_SEAL_POSITION_TEXT } from './lib/personInfoContent';
 
 
-// Matches the point where OracleDisplay's two-column flex row (hero
-// glyph flex-basis 260px + cross grid flex-basis 280px + 48px gap =
-// ~588px) naturally wraps to a single stacked column. Measured against
-// this component's own rendered width rather than the browser
-// viewport — see the note in InfoCard.jsx for why that distinction
-// matters on the Squarespace embed.
-const DESKTOP_CONTAINER_THRESHOLD = 620;
+// Matches OracleDisplay's own already-tested wrap breakpoint (previously
+// applied via window.matchMedia at 700/701px). Measured against this
+// component's own rendered width rather than the browser viewport — see
+// the note in InfoCard.jsx for why that distinction matters on the
+// Squarespace embed. (An earlier version of this used 620px, calculated
+// naively from the raw flex-basis sum of 260+280+48 gap — that ignored
+// the cross-grid's real minimum content size, which needs more room
+// than its flex-basis alone suggests, so it under-fired and still
+// picked "desktop" even when the container was visibly stacked.)
+const DESKTOP_CONTAINER_THRESHOLD = 701;
 
 export default function Kin260Calculator({ initialBirthDate }) {
   const [birthDate, setBirthDate] = useState(initialBirthDate || '1990-01-01');
