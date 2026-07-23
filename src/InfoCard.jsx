@@ -103,6 +103,7 @@ export default function InfoCard({
           maxWidth: anchorLeft !== undefined ? anchorWidth : 380,
           maxHeight: '80vh',
           overflowY: 'auto',
+          boxSizing: 'border-box',
           background: '#F5F0E4',
           color: '#1a1714',
           fontFamily: "'Cormorant Garamond', 'Georgia', serif",

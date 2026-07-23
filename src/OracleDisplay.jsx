@@ -147,6 +147,11 @@ export default function OracleDisplay({
   // guessing pixel values. Undefined for every existing caller that
   // doesn't need this (You/Today pages in the app).
   heroColumnRef,
+  // Optional — ref to the cross-grid column, so the parent can compare
+  // its position against heroColumnRef to directly detect whether the
+  // layout is actually side-by-side or stacked, instead of guessing a
+  // width threshold that may not match the real flex-wrap point.
+  crossColumnRef,
 }) {
   const [activeKey, setActiveKey] = useState(null);
   const [supportsHover, setSupportsHover] = useState(false);
@@ -290,7 +295,7 @@ export default function OracleDisplay({
           </div>
         </div>
 
-        <div className="kin260-cross-wrap" style={{ flex: '1 1 280px' }}>
+        <div ref={crossColumnRef} className="kin260-cross-wrap" style={{ flex: '1 1 280px' }}>
           <div style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr 1fr',

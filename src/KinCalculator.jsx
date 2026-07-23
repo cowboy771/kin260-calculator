@@ -65,32 +65,32 @@ export default function Kin260Calculator({ initialBirthDate }) {
     initialBirthDate ? computeResult(initialBirthDate) : null
   );
 
-  // Measures the hero glyph column's actual rendered position/width
-  // (relative to the wrapper below, which is its offsetParent) so
-  // InfoCard can be sized and positioned to sit exactly above it —
-  // covering the glyph but leaving the cross grid visible on desktop.
-  //
-  // Below the already-proven 701px wrap point, we don't trust the
-  // column's own self-reported offsetWidth: a lone flex item sitting
-  // alone on a wrapped row can resolve its width inconsistently
-  // depending on whether flex-grow or an explicit width "wins" in a
-  // given browser. Below that threshold we just force the anchor to
-  // the wrapper's own directly-measured full width instead — the same
-  // reliable measurement/threshold already validated earlier — so the
-  // card is guaranteed full-width and flush-left with no ambiguity.
+  // Measures the hero glyph column's actual rendered position/width so
+  // InfoCard can sit exactly above it. Rather than guessing a pixel
+  // width threshold for "is this stacked or side-by-side" (which broke
+  // twice — the flex-wrap point isn't the same as the old @media
+  // breakpoint, and a lone wrapped flex item can self-report its width
+  // inconsistently), this checks the actual rendered layout directly:
+  // if the cross-grid's top edge sits meaningfully below the hero
+  // column's top edge, the layout has genuinely stacked, so the anchor
+  // is forced to the wrapper's own full measured width. Otherwise
+  // they're side-by-side, so the hero column's own measured position
+  // is trustworthy.
   const wrapperRef = useRef(null);
   const heroColumnRef = useRef(null);
+  const crossColumnRef = useRef(null);
   const [anchor, setAnchor] = useState({ left: 0, width: '100%' });
 
   useEffect(() => {
     const wrapperEl = wrapperRef.current;
     const heroEl = heroColumnRef.current;
-    if (!wrapperEl || !heroEl) return;
+    const crossEl = crossColumnRef.current;
+    if (!wrapperEl || !heroEl || !crossEl) return;
 
     const measure = () => {
-      const wrapperWidth = wrapperEl.offsetWidth;
-      if (wrapperWidth < 701) {
-        setAnchor({ left: 0, width: wrapperWidth });
+      const stacked = crossEl.offsetTop - heroEl.offsetTop > 20;
+      if (stacked) {
+        setAnchor({ left: 0, width: wrapperEl.offsetWidth });
       } else {
         setAnchor({ left: heroEl.offsetLeft, width: heroEl.offsetWidth });
       }
@@ -100,6 +100,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
     const observer = new ResizeObserver(measure);
     observer.observe(wrapperEl);
     observer.observe(heroEl);
+    observer.observe(crossEl);
     return () => observer.disconnect();
   }, [result]);
 
@@ -203,6 +204,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
             dailyMode
             onPositionSelect={(key, tappedSeal) => setInfoCard({ key, seal: tappedSeal })}
             heroColumnRef={heroColumnRef}
+            crossColumnRef={crossColumnRef}
             headerLeft={
               <div>
                 <div style={{
