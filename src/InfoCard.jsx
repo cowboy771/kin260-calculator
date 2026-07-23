@@ -2,6 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { GlyphPlaceholder } from './OracleDisplay';
 import { POSITION_INFO as DAILY_POSITION_INFO, SEAL_POSITION_TEXT as DAILY_SEAL_POSITION_TEXT } from './lib/dailyInfoContent';
 
+// NOTE ON THE MOBILE/DESKTOP SPLIT BELOW:
+// This used to be decided purely by window.matchMedia against the
+// BROWSER VIEWPORT width. That works fine inside the native app (the
+// viewport genuinely is the available width there), but breaks on the
+// Squarespace embed: Squarespace's own page template narrows the
+// calculator's content column well below the full browser viewport
+// width, so a wide desktop browser can still only give the calculator
+// ~650px to render into. OracleDisplay's two-column layout already
+// handles this correctly (it wraps to a single stacked column based on
+// actual flex-wrap of its container, not the viewport). InfoCard needs
+// to agree with that same reality, not the viewport, or it ends up
+// thinking it's "desktop" and rendering the small offset-positioned
+// card even though the calculator is visually in its narrow/stacked
+// layout — which is exactly the overlap bug seen on the live site.
+//
+// Fix: the parent (KinCalculator) now measures its own rendered width
+// with a ResizeObserver and passes that down as the `isDesktop` prop.
+// If a caller doesn't pass it (the app's Today/You pages, where the
+// viewport genuinely is the available width), we fall back to the
+// original matchMedia behaviour untouched below.
+
 const sealColorMap = {
   Red: '#8B0000',
   White: '#A8A0A0',
@@ -40,16 +61,24 @@ export default function InfoCard({
   // Small badge above the title making it obvious which chart this card
   // belongs to, e.g. "Today's Chart" or "Your Chart".
   contextLabel,
+  // Optional override — pass true/false to use the parent's own
+  // container-width measurement instead of viewport matchMedia. Leave
+  // undefined (the app's existing callers) to keep the original
+  // viewport-based behaviour exactly as it was.
+  isDesktop: isDesktopProp,
 }) {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktopViewport, setIsDesktopViewport] = useState(false);
 
   useEffect(() => {
+    if (isDesktopProp !== undefined) return; // parent is controlling this — skip viewport listener entirely
     const mq = window.matchMedia(DESKTOP_BREAKPOINT);
-    const update = () => setIsDesktop(mq.matches);
+    const update = () => setIsDesktopViewport(mq.matches);
     update();
     mq.addEventListener('change', update);
     return () => mq.removeEventListener('change', update);
-  }, []);
+  }, [isDesktopProp]);
+
+  const isDesktop = isDesktopProp !== undefined ? isDesktopProp : isDesktopViewport;
 
   if (!positionKey || !seal) return null;
 

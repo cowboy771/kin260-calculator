@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 // ============================================================
 // KIN260 CALCULATOR — v3 — MATH FULLY LOCKED
@@ -39,9 +39,35 @@ import InfoCard from './InfoCard';
 import { POSITION_INFO as PERSON_POSITION_INFO, SEAL_POSITION_TEXT as PERSON_SEAL_POSITION_TEXT } from './lib/personInfoContent';
 
 
+// Matches the point where OracleDisplay's two-column flex row (hero
+// glyph flex-basis 260px + cross grid flex-basis 280px + 48px gap =
+// ~588px) naturally wraps to a single stacked column. Measured against
+// this component's own rendered width rather than the browser
+// viewport — see the note in InfoCard.jsx for why that distinction
+// matters on the Squarespace embed.
+const DESKTOP_CONTAINER_THRESHOLD = 620;
+
 export default function Kin260Calculator({ initialBirthDate }) {
   const [birthDate, setBirthDate] = useState(initialBirthDate || '1990-01-01');
   const [infoCard, setInfoCard] = useState(null); // { key, seal } | null
+
+  // Measures the wrapper div's own rendered width (not the viewport) so
+  // the Info Card's desktop/mobile split always agrees with whatever
+  // width OracleDisplay actually has to work with — regardless of how
+  // narrow Squarespace's page template makes the surrounding column.
+  const wrapperRef = useRef(null);
+  const [isDesktopCard, setIsDesktopCard] = useState(false);
+
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver((entries) => {
+      const width = entries[0].contentRect.width;
+      setIsDesktopCard(width >= DESKTOP_CONTAINER_THRESHOLD);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Pure calculation — no state updates, just returns the result object.
   // Used both for the initial (synchronous) render and for recalculating
@@ -92,7 +118,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
       padding: '40px 24px 24px',
       color: '#1a1714',
     }}>
-      <div style={{ maxWidth: 900, margin: '0 auto', position: 'relative' }}>
+      <div ref={wrapperRef} style={{ maxWidth: 900, margin: '0 auto', position: 'relative' }}>
         {!result && (
           <div style={{ textAlign: 'center', maxWidth: 480, margin: '40px auto' }}>
             <h1 style={{
@@ -200,6 +226,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
             positionInfo={PERSON_POSITION_INFO}
             sealPositionText={PERSON_SEAL_POSITION_TEXT}
             contextLabel="Your Chart"
+            isDesktop={isDesktopCard}
           />
         )}
 
