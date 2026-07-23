@@ -60,12 +60,16 @@ export default function InfoCard({
         // covers the full viewport so a click anywhere else closes it.
         background: isDesktop ? 'transparent' : 'rgba(26, 23, 20, 0.45)',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: isDesktop ? 'flex-start' : 'center',
         justifyContent: isDesktop ? 'flex-start' : 'center',
         padding: 20,
         // Roughly aligns with the left glyph column inside the
-        // calculator's centred, max-width: 900px container.
+        // calculator's centred, max-width: 900px container. This is a
+        // fixed viewport offset (not scroll-aware), so it lines up
+        // with the glyph when the chart is opened at the top of the
+        // page — the usual case right after calculating a chart.
         paddingLeft: isDesktop ? 'max(20px, calc(50vw - 420px))' : 20,
+        paddingTop: isDesktop ? 130 : 20,
         zIndex: 200,
       }}
     >
@@ -75,7 +79,7 @@ export default function InfoCard({
           position: 'relative',
           width: '100%',
           maxWidth: 380,
-          maxHeight: '85vh',
+          maxHeight: isDesktop ? 'calc(100vh - 160px)' : '85vh',
           overflowY: 'auto',
           background: '#F5F0E4',
           color: '#1a1714',
