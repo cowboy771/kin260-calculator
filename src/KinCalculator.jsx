@@ -177,7 +177,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
                   textTransform: 'uppercase',
                 }}
               >
-                Calculate My Codes
+                Calculate My Mayan Codes
               </button>
             </div>
           </div>
