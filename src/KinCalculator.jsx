@@ -134,22 +134,13 @@ export default function Kin260Calculator({ initialBirthDate }) {
       <div ref={wrapperRef} style={{ maxWidth: 900, margin: '0 auto', position: 'relative' }}>
         {!result && (
           <div style={{ textAlign: 'center', maxWidth: 480, margin: '40px auto' }}>
-            <h1 style={{
-              fontSize: 40,
-              fontWeight: 400,
-              letterSpacing: '0.01em',
-              marginBottom: 24,
-              lineHeight: 1.15,
-            }}>
-              Change your life with<br />the help of ancient<br />knowledge.
-            </h1>
             <p style={{
               fontFamily: "'Cormorant Garamond', 'Georgia', serif",
               fontSize: 15,
               color: '#1a1714',
               marginBottom: 28,
             }}>
-              Enter your birth date to discover your codes.
+              Enter your birthdate.
             </p>
             <input
               type="date"
@@ -186,7 +177,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
                   textTransform: 'uppercase',
                 }}
               >
-                Find My Codes
+                Calculate My Codes
               </button>
             </div>
           </div>
@@ -253,7 +244,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
               fontStyle: 'italic', fontWeight: 400, fontSize: 22, marginBottom: 10,
               color: '#1a1714', textAlign: 'center',
             }}>
-              How To Read Your Birth Chart
+              How To Read Your Kin Codes
             </h2>
             <p style={{
               fontSize: 14, lineHeight: 1.6, color: '#1a1714', textAlign: 'center',
