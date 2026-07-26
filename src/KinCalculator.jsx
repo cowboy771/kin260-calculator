@@ -207,7 +207,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
                   fontFamily: "'Cormorant Garamond', 'Georgia', serif",
                   marginBottom: 4,
                 }}>
-                  Kin Number {result.kin}
+                  Kin {result.kin}
                 </div>
                 <h2 style={{
                   fontSize: 32,
