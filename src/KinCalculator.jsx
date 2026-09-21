@@ -133,13 +133,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
     }}>
       <div ref={wrapperRef} style={{ maxWidth: 900, margin: '0 auto', position: 'relative' }}>
         {!result && (
-          <div style={{
-            minHeight: 'calc(100vh - 80px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <div style={{ textAlign: 'center', maxWidth: 480, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', maxWidth: 480, margin: '40px auto' }}>
             <p style={{
               fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
               fontWeight: 400,
@@ -186,7 +180,6 @@ export default function Kin260Calculator({ initialBirthDate }) {
                 Calculate your codes <span style={{ textDecoration: 'underline' }}>here</span>
               </button>
             </div>
-          </div>
           </div>
         )}
 
