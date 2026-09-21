@@ -123,6 +123,10 @@ export default function OracleDisplay({
   onPositionSelect,
   // Optional — ref to the cross-grid column.
   crossColumnRef,
+  // Optional — content rendered full-width, between the header row and
+  // the cross/side-content row (e.g. the "How To Read" heading and
+  // description), so both columns below it start at the same height.
+  introContent,
   // Optional — content rendered to the right of the glyph cross (e.g.
   // the "How To Read Your Kin Codes" diagram), separated by a vertical
   // divider. When omitted, the cross column simply takes the full row.
@@ -188,6 +192,12 @@ export default function OracleDisplay({
         }}>
           <div>{headerLeft}</div>
           <div>{headerRight}</div>
+        </div>
+      )}
+
+      {introContent && (
+        <div style={{ marginBottom: 24 }}>
+          {introContent}
         </div>
       )}
 

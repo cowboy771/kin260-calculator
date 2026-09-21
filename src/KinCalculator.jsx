@@ -201,26 +201,26 @@ export default function Kin260Calculator({ initialBirthDate }) {
                 </h2>
               </div>
             }
-            sideContent={
+            introContent={
               <div>
                 <h2 style={{
                   fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
-                  fontStyle: 'italic', fontWeight: 400, fontSize: 22, lineHeight: 1, margin: '-10px 0 10px',
+                  fontStyle: 'italic', fontWeight: 400, fontSize: 22, marginTop: 0, marginBottom: 10,
                   color: '#1a1714', textAlign: 'center',
                 }}>
                   How To Read Your Kin Codes
                 </h2>
                 <p style={{
                   fontSize: 14, lineHeight: 1.6, color: '#1a1714', textAlign: 'center',
-                  maxWidth: 420, margin: '0 auto 8px', fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+                  maxWidth: 420, margin: '0 auto', fontFamily: "'Cormorant Garamond', 'Georgia', serif",
                 }}>
                   This is your own chart, not the day's. These positions describe your personal
                   archetype — traits, tendencies and patterns that stay with you, rather than a
                   mood that shifts day to day.
                 </p>
-                <ChartDiagram />
               </div>
             }
+            sideContent={<ChartDiagram />}
           />
         )}
 
