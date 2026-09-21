@@ -65,42 +65,23 @@ export default function Kin260Calculator({ initialBirthDate }) {
     initialBirthDate ? computeResult(initialBirthDate) : null
   );
 
-  // Measures the hero glyph column's actual rendered position/width so
-  // InfoCard can sit exactly above it. Rather than guessing a pixel
-  // width threshold for "is this stacked or side-by-side" (which broke
-  // twice — the flex-wrap point isn't the same as the old @media
-  // breakpoint, and a lone wrapped flex item can self-report its width
-  // inconsistently), this checks the actual rendered layout directly:
-  // if the cross-grid's top edge sits meaningfully below the hero
-  // column's top edge, the layout has genuinely stacked, so the anchor
-  // is forced to the wrapper's own full measured width. Otherwise
-  // they're side-by-side, so the hero column's own measured position
-  // is trustworthy.
+  // InfoCard is anchored to the full wrapper width — with the hero glyph
+  // column retired (the cross + "How To Read" panel are now side by
+  // side instead), there's no single reference column to measure
+  // against, so the popup simply spans the whole content area.
   const wrapperRef = useRef(null);
-  const heroColumnRef = useRef(null);
   const crossColumnRef = useRef(null);
   const [anchor, setAnchor] = useState({ left: 0, width: '100%' });
 
   useEffect(() => {
     const wrapperEl = wrapperRef.current;
-    const heroEl = heroColumnRef.current;
-    const crossEl = crossColumnRef.current;
-    if (!wrapperEl || !heroEl || !crossEl) return;
+    if (!wrapperEl) return;
 
-    const measure = () => {
-      const stacked = crossEl.offsetTop - heroEl.offsetTop > 20;
-      if (stacked) {
-        setAnchor({ left: 0, width: wrapperEl.offsetWidth });
-      } else {
-        setAnchor({ left: heroEl.offsetLeft, width: heroEl.offsetWidth });
-      }
-    };
+    const measure = () => setAnchor({ left: 0, width: wrapperEl.offsetWidth });
 
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(wrapperEl);
-    observer.observe(heroEl);
-    observer.observe(crossEl);
     return () => observer.disconnect();
   }, [result]);
 
@@ -194,7 +175,6 @@ export default function Kin260Calculator({ initialBirthDate }) {
             chart={result.chart}
             dailyMode
             onPositionSelect={(key, tappedSeal) => setInfoCard({ key, seal: tappedSeal })}
-            heroColumnRef={heroColumnRef}
             crossColumnRef={crossColumnRef}
             headerLeft={
               <div>
@@ -221,6 +201,26 @@ export default function Kin260Calculator({ initialBirthDate }) {
                 </h2>
               </div>
             }
+            sideContent={
+              <div>
+                <h2 style={{
+                  fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
+                  fontStyle: 'italic', fontWeight: 400, fontSize: 22, marginBottom: 10,
+                  color: '#1a1714', textAlign: 'center',
+                }}>
+                  How To Read Your Kin Codes
+                </h2>
+                <p style={{
+                  fontSize: 14, lineHeight: 1.6, color: '#1a1714', textAlign: 'center',
+                  maxWidth: 420, margin: '0 auto 8px', fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+                }}>
+                  This is your own chart, not the day's. These positions describe your personal
+                  archetype — traits, tendencies and patterns that stay with you, rather than a
+                  mood that shifts day to day.
+                </p>
+                <ChartDiagram />
+              </div>
+            }
           />
         )}
 
@@ -235,27 +235,6 @@ export default function Kin260Calculator({ initialBirthDate }) {
             anchorLeft={anchor.left}
             anchorWidth={anchor.width}
           />
-        )}
-
-        {result && (
-          <div style={{ marginTop: 48, paddingTop: 32, borderTop: '1px solid rgba(0,0,0,0.1)' }}>
-            <h2 style={{
-              fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
-              fontStyle: 'italic', fontWeight: 400, fontSize: 22, marginBottom: 10,
-              color: '#1a1714', textAlign: 'center',
-            }}>
-              How To Read Your Kin Codes
-            </h2>
-            <p style={{
-              fontSize: 14, lineHeight: 1.6, color: '#1a1714', textAlign: 'center',
-              maxWidth: 420, margin: '0 auto 8px', fontFamily: "'Cormorant Garamond', 'Georgia', serif",
-            }}>
-              This is your own chart, not the day's. These positions describe your personal
-              archetype — traits, tendencies and patterns that stay with you, rather than a
-              mood that shifts day to day.
-            </p>
-            <ChartDiagram />
-          </div>
         )}
       </div>
     </div>

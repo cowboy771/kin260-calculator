@@ -16,27 +16,7 @@ const sealColorMap = {
   Yellow: COLORS.amber,
 };
 
-const ACTIVE_LABELS = {
-  birthKin: 'Birth Kin',
-  guide: 'Guide',
-  analog: 'Analog',
-  antipode: 'Antipode',
-  occult: 'Occult',
-  wavespell: 'Wavespell',
-};
 
-// Generic meaning of each position itself, independent of which Seal
-// occupies it — shown as a brief line before the Seal-specific reading.
-const POSITION_DESCRIPTIONS = {
-  birthKin: 'Your core identity and life path.',
-  guide: 'The energy that guides you back to yourself.',
-  analog: 'The energy that naturally supports and stabilises you.',
-  antipode: 'The energy that challenges and triggers you toward growth.',
-  occult: 'The unconscious power source running underneath everything.',
-  wavespell: 'The larger story.',
-};
-
-import SketchDivider from './SketchDivider';
 
 export function GlyphPlaceholder({ seal, colorMap, size = 56 }) {
   const [failed, setFailed] = useState(false);
@@ -141,17 +121,12 @@ export default function OracleDisplay({
   // is untouched and keeps the original inline tap-to-reveal behavior.
   dailyMode = false,
   onPositionSelect,
-  // Optional — lets the parent measure the hero glyph column's actual
-  // rendered position/width (via getBoundingClientRect / offsetLeft),
-  // so InfoCard can be sized to sit exactly above it rather than
-  // guessing pixel values. Undefined for every existing caller that
-  // doesn't need this (You/Today pages in the app).
-  heroColumnRef,
-  // Optional — ref to the cross-grid column, so the parent can compare
-  // its position against heroColumnRef to directly detect whether the
-  // layout is actually side-by-side or stacked, instead of guessing a
-  // width threshold that may not match the real flex-wrap point.
+  // Optional — ref to the cross-grid column.
   crossColumnRef,
+  // Optional — content rendered to the right of the glyph cross (e.g.
+  // the "How To Read Your Kin Codes" diagram), separated by a vertical
+  // divider. When omitted, the cross column simply takes the full row.
+  sideContent,
 }) {
   const [activeKey, setActiveKey] = useState(null);
   const [supportsHover, setSupportsHover] = useState(false);
@@ -160,14 +135,6 @@ export default function OracleDisplay({
     const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
     setSupportsHover(mq.matches);
   }, []);
-
-  const heroSeal =
-    activeKey === 'guide' ? oracle.guide :
-    activeKey === 'analog' ? oracle.analog :
-    activeKey === 'antipode' ? oracle.antipode :
-    activeKey === 'occult' ? oracle.occult :
-    activeKey === 'wavespell' ? getSeal(wavespell.seal) :
-    seal;
 
   const sealForKey = (key) => (
     key === 'guide' ? oracle.guide :
@@ -202,14 +169,10 @@ export default function OracleDisplay({
           .kin260-main-row {
             flex-direction: column;
             align-items: center !important;
-            gap: 16px !important;
+            gap: 32px !important;
           }
-          .kin260-hero-inner {
+          .kin260-divider {
             display: none !important;
-          }
-          .kin260-hero-column {
-            flex-basis: 0 !important;
-            margin-bottom: 0 !important;
           }
         }
       `}</style>
@@ -231,84 +194,10 @@ export default function OracleDisplay({
       <div className="kin260-main-row" style={{
         display: 'flex',
         flexWrap: 'wrap',
+        alignItems: 'flex-start',
         gap: 48,
         marginBottom: 40,
       }}>
-        <div ref={heroColumnRef} className="kin260-hero-column" style={{
-          flex: '1 1 260px',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}>
-          {/* Grouped so the entire large hero glyph + its reveal text can
-              be hidden on mobile via CSS (see .kin260-hero-inner above),
-              leaving only the glyph cross visible on small screens. Tap
-              interactions on the cross are unaffected — they still open
-              the InfoCard popup (dailyMode) independent of this block. */}
-          <div className="kin260-hero-inner">
-            <SketchDivider width={60} style={{ marginBottom: 24, marginLeft: 'auto', marginRight: 'auto' }} />
-            <div
-              onMouseEnter={supportsHover && !dailyMode ? () => setActiveKey('birthKin') : undefined}
-              onMouseLeave={supportsHover && !dailyMode ? () => setActiveKey(null) : undefined}
-              onClick={() => handleTap('birthKin')}
-              style={{
-                cursor: 'pointer',
-                transition: 'transform 0.15s ease',
-                transform: activeKey === 'birthKin' ? 'scale(1.05)' : 'scale(1)',
-              }}
-            >
-              <GlyphPlaceholder seal={heroSeal} colorMap={sealColorMap} size={238} />
-            </div>
-
-            <div style={{
-              marginTop: 28,
-              maxWidth: 380,
-              textAlign: 'center',
-              fontFamily: "'Cormorant Garamond', 'Georgia', serif",
-            }}>
-              {dailyMode ? (
-                !activeKey && (
-                  <p style={{ fontSize: 16, color: '#1a1714', fontStyle: 'italic' }}>
-                    {supportsHover ? 'Click on a glyph to read its meaning.' : 'Tap a glyph to read its meaning.'}
-                  </p>
-                )
-              ) : activeKey ? (
-                <>
-                  <div style={{
-                    fontSize: 22,
-                    fontWeight: 700,
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
-                    fontStyle: 'italic',
-                    color: '#1a1714',
-                    marginBottom: 8,
-                  }}>
-                    {ACTIVE_LABELS[activeKey]}
-                  </div>
-                  <p style={{
-                    fontSize: 22,
-                    color: '#1a1714',
-                    fontStyle: 'italic',
-                    marginBottom: 14,
-                  }}>
-                    {POSITION_DESCRIPTIONS[activeKey]}
-                  </p>
-                  <p style={{ fontSize: 19, lineHeight: 1.6, color: '#1a1714' }}>
-                    <strong>{chart[activeKey].slice(0, heroSeal.name.length)}</strong>
-                    {chart[activeKey].slice(heroSeal.name.length)}
-                  </p>
-                </>
-              ) : (
-                <p style={{ fontSize: 16, color: '#1a1714', fontStyle: 'italic' }}>
-                  {supportsHover ? 'Hover over a glyph to read its meaning.' : 'Tap a glyph to read its meaning.'}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-
         <div ref={crossColumnRef} className="kin260-cross-wrap" style={{ flex: '1 1 280px' }}>
           <div style={{
             display: 'grid',
@@ -405,7 +294,30 @@ export default function OracleDisplay({
               {getSeal(wavespell.seal).name} · #{wavespell.number}
             </span>
           </div>
+
+          {dailyMode && (
+            <p style={{
+              marginTop: 20,
+              maxWidth: 380,
+              textAlign: 'center',
+              fontSize: 14,
+              fontStyle: 'italic',
+              color: '#1a1714',
+              fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+            }}>
+              {supportsHover ? 'Click on a glyph to read its meaning.' : 'Tap a glyph to read its meaning.'}
+            </p>
+          )}
         </div>
+
+        {sideContent && (
+          <>
+            <div className="kin260-divider" style={{ width: 1, alignSelf: 'stretch', background: 'rgba(26,23,20,0.15)' }} />
+            <div style={{ flex: '1 1 320px' }}>
+              {sideContent}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
