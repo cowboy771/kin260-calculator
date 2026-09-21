@@ -205,7 +205,7 @@ export default function Kin260Calculator({ initialBirthDate }) {
               <div>
                 <h2 style={{
                   fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
-                  fontStyle: 'italic', fontWeight: 400, fontSize: 22, marginTop: 0, marginBottom: 10,
+                  fontStyle: 'italic', fontWeight: 400, fontSize: 22, lineHeight: 1, margin: '-10px 0 10px',
                   color: '#1a1714', textAlign: 'center',
                 }}>
                   How To Read Your Kin Codes
