@@ -180,22 +180,23 @@ export default function Kin260Calculator({ initialBirthDate }) {
               <div>
                 <div style={{
                   fontSize: 20,
-                  fontWeight: 700,
+                  fontWeight: 600,
                   color: '#1a1714',
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
-                  fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+                  fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
                   marginBottom: 4,
                 }}>
                   Kin {result.kin}
                 </div>
                 <h2 style={{
                   fontSize: 32,
-                  fontWeight: 400,
-                  fontStyle: 'italic',
-                  fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.02em',
+                  fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
                   color: '#1a1714',
-                  lineHeight: 1.1,
+                  lineHeight: 1.15,
                 }}>
                   {toneSealTitle(result.tone.name, result.seal.name)}
                 </h2>
@@ -210,14 +211,6 @@ export default function Kin260Calculator({ initialBirthDate }) {
                 }}>
                   How To Read Your Kin Codes
                 </h2>
-                <p style={{
-                  fontSize: 14, lineHeight: 1.6, color: '#1a1714', textAlign: 'center',
-                  maxWidth: 420, margin: '0 auto', fontFamily: "'Cormorant Garamond', 'Georgia', serif",
-                }}>
-                  This is your own chart, not the day's. These positions describe your personal
-                  archetype — traits, tendencies and patterns that stay with you, rather than a
-                  mood that shifts day to day.
-                </p>
               </div>
             }
             sideContent={<ChartDiagram />}

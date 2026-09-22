@@ -80,11 +80,12 @@ export function CrossCard({ label, seal, colorMap, large, active, onEnter, onLea
     >
       <div style={{
         fontSize: 10,
+        fontWeight: 400,
         color: '#1a1714',
-        letterSpacing: '0.06em',
+        letterSpacing: '0.08em',
         textTransform: 'uppercase',
         marginBottom: 8,
-        fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+        fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
       }}>
         {label}
       </div>
@@ -96,13 +97,12 @@ export function CrossCard({ label, seal, colorMap, large, active, onEnter, onLea
         <GlyphPlaceholder seal={seal} colorMap={colorMap} size={large ? 130 : 84} />
       </div>
       <div style={{
-        fontSize: large ? 15 : 11,
-        fontWeight: 500,
-        fontStyle: 'italic',
+        fontSize: large ? 15 : 12,
+        fontWeight: 700,
         color: '#1a1714',
         marginTop: 8,
         lineHeight: 1.25,
-        fontFamily: "'IM Fell English', 'Cormorant Garamond', 'Georgia', serif",
+        fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
       }}>
         {seal.name}
       </div>
@@ -204,7 +204,7 @@ export default function OracleDisplay({
       <div className="kin260-main-row" style={{
         display: 'flex',
         flexWrap: 'wrap',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         gap: 48,
         marginBottom: 40,
       }}>
@@ -311,9 +311,9 @@ export default function OracleDisplay({
               maxWidth: 380,
               textAlign: 'center',
               fontSize: 14,
-              fontStyle: 'italic',
+              fontWeight: 400,
               color: '#1a1714',
-              fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+              fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
             }}>
               {supportsHover ? 'Click on a glyph to read its meaning.' : 'Tap a glyph to read its meaning.'}
             </p>
