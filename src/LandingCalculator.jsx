@@ -34,7 +34,7 @@ export default function LandingCalculator() {
 
   return (
     <div style={{
-      minHeight: '100vh',
+      minHeight: 600,
       background: COLORS.cream,
       display: 'flex',
       flexDirection: 'column',
@@ -43,16 +43,29 @@ export default function LandingCalculator() {
       padding: '48px 24px',
       boxSizing: 'border-box',
     }}>
-      {/* Wordmark — styled to match the site nav's logo text. Swap this
-          for an <img> of the real logo asset if you have one; this is a
-          text-based stand-in so the landing page doesn't depend on an
-          image file living in this repo. */}
+      <style>{`
+        @keyframes kin260-bimble {
+          0%   { transform: translate(0px, 0px) rotate(0deg); }
+          20%  { transform: translate(6px, -4px) rotate(-1.5deg); }
+          40%  { transform: translate(-5px, 3px) rotate(1deg); }
+          60%  { transform: translate(4px, 5px) rotate(1.5deg); }
+          80%  { transform: translate(-6px, -3px) rotate(-1deg); }
+          100% { transform: translate(0px, 0px) rotate(0deg); }
+        }
+      `}</style>
+
+      {/* Wordmark — a playful, gentle "bimble" using transform only (never
+          margin/position), so it never nudges the page's own scrollHeight —
+          that would fight the iframe auto-resize script the same way a
+          100vh height did earlier, and send the page into a growth loop. */}
       <div style={{
-        fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+        fontFamily: "'IM Fell English', 'Georgia', serif",
         fontStyle: 'italic',
         fontSize: 44,
         color: COLORS.ink,
         marginBottom: 40,
+        animation: 'kin260-bimble 11s ease-in-out infinite',
+        display: 'inline-block',
       }}>
         Kin260
       </div>
