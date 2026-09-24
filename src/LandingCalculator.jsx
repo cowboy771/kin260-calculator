@@ -51,24 +51,45 @@ export default function LandingCalculator() {
       `}</style>
 
       {/* Wordmark — flips end-over-end around its own vertical centre like a
-          coin, briefly showing the mirrored "back" of the text mid-spin
-          before landing the right way round again. The perspective on this
-          wrapper is what gives the rotation actual 3D depth rather than
-          just squashing flat; backfaceVisibility is deliberately left at
-          its default (visible) so the reversed text shows through instead
-          of disappearing. Transform-only animation, same as before, so it
-          can't nudge the page's own scrollHeight. */}
+          solid plaque with real thickness, briefly showing the mirrored
+          "back" of the text mid-spin before landing the right way round
+          again. The illusion of depth comes from stacking several copies
+          of the same text at slightly different Z depths (translateZ) —
+          as the whole stack rotates together, the browser's real 3D
+          perspective reveals the gap between layers as a visible edge
+          near the 90°/270° points, the same way a thick coin shows its
+          rim side-on. Each layer is tinted a touch darker moving back, so
+          that edge reads as shaded material rather than a flat sliver.
+          Perspective on the outer wrapper is what makes any of this look
+          3D rather than just squashing flat; backfaceVisibility is left
+          at its default (visible) so the reversed text still shows
+          through rather than disappearing. Transform-only animation, so
+          it can't nudge the page's own scrollHeight. */}
       <div style={{ perspective: 600, marginBottom: 40 }}>
         <div style={{
-          fontFamily: "'IM Fell English', 'Georgia', serif",
-          fontStyle: 'italic',
-          fontSize: 44,
-          color: COLORS.ink,
+          position: 'relative',
           transformStyle: 'preserve-3d',
           animation: 'kin260-flip 8s linear infinite',
           display: 'inline-block',
         }}>
-          Kin260
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <div
+              key={i}
+              style={{
+                position: i === 0 ? 'relative' : 'absolute',
+                top: 0,
+                left: 0,
+                fontFamily: "'IM Fell English', 'Georgia', serif",
+                fontStyle: 'italic',
+                fontSize: 44,
+                color: i === 0 ? COLORS.ink : `rgba(26, 23, 20, ${0.85 - i * 0.12})`,
+                transform: `translateZ(${-i * 0.8}px)`,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Kin260
+            </div>
+          ))}
         </div>
       </div>
 
