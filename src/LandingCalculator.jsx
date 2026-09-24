@@ -44,36 +44,33 @@ export default function LandingCalculator() {
       boxSizing: 'border-box',
     }}>
       <style>{`
-        @keyframes kin260-bimble {
-          0%   { transform: translate(0px, 0px) rotate(0deg); }
-          8%   { transform: translate(2px, -2px) rotate(-1deg); }
-          16%  { transform: translate(-3px, 1px) rotate(1deg); }
-          24%  { transform: translate(2px, 2px) rotate(-0.5deg); }
-          32%  { transform: translate(-2px, -1px) rotate(1deg); }
-          40%  { transform: translate(3px, 1px) rotate(-1deg); }
-          48%  { transform: translate(-1px, -2px) rotate(0.5deg); }
-          56%  { transform: translate(1px, 2px) rotate(-1deg); }
-          64%  { transform: translate(-2px, 1px) rotate(1deg); }
-          72%  { transform: translate(2px, -1px) rotate(-0.5deg); }
-          80%  { transform: translate(-1px, 2px) rotate(1deg); }
-          88%  { transform: translate(1px, -2px) rotate(-1deg); }
-          100% { transform: translate(0px, 0px) rotate(0deg); }
+        @keyframes kin260-flip {
+          0%   { transform: rotateY(0deg); }
+          20%  { transform: rotateY(360deg); }
+          100% { transform: rotateY(360deg); }
         }
       `}</style>
 
-      {/* Wordmark — a fast, jittery "bee vibrating" wobble. Still transform
-          only (never margin/position), so it can't nudge the page's own
-          scrollHeight and re-trigger the iframe resize growth loop. */}
-      <div style={{
-        fontFamily: "'IM Fell English', 'Georgia', serif",
-        fontStyle: 'italic',
-        fontSize: 44,
-        color: COLORS.ink,
-        marginBottom: 40,
-        animation: 'kin260-bimble 0.4s linear infinite',
-        display: 'inline-block',
-      }}>
-        Kin260
+      {/* Wordmark — flips end-over-end around its own vertical centre like a
+          coin, briefly showing the mirrored "back" of the text mid-spin
+          before landing the right way round again. The perspective on this
+          wrapper is what gives the rotation actual 3D depth rather than
+          just squashing flat; backfaceVisibility is deliberately left at
+          its default (visible) so the reversed text shows through instead
+          of disappearing. Transform-only animation, same as before, so it
+          can't nudge the page's own scrollHeight. */}
+      <div style={{ perspective: 600, marginBottom: 40 }}>
+        <div style={{
+          fontFamily: "'IM Fell English', 'Georgia', serif",
+          fontStyle: 'italic',
+          fontSize: 44,
+          color: COLORS.ink,
+          transformStyle: 'preserve-3d',
+          animation: 'kin260-flip 5s ease-in-out infinite',
+          display: 'inline-block',
+        }}>
+          Kin260
+        </div>
       </div>
 
       <div style={{ textAlign: 'center', maxWidth: 480 }}>
