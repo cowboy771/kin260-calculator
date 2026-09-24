@@ -46,8 +46,7 @@ export default function LandingCalculator() {
       <style>{`
         @keyframes kin260-flip {
           0%   { transform: rotateY(0deg); }
-          20%  { transform: rotateY(360deg); }
-          100% { transform: rotateY(360deg); }
+          100% { transform: rotateY(-360deg); }
         }
       `}</style>
 
@@ -66,7 +65,7 @@ export default function LandingCalculator() {
           fontSize: 44,
           color: COLORS.ink,
           transformStyle: 'preserve-3d',
-          animation: 'kin260-flip 5s ease-in-out infinite',
+          animation: 'kin260-flip 8s linear infinite',
           display: 'inline-block',
         }}>
           Kin260
