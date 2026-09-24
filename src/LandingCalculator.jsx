@@ -46,25 +46,31 @@ export default function LandingCalculator() {
       <style>{`
         @keyframes kin260-bimble {
           0%   { transform: translate(0px, 0px) rotate(0deg); }
-          20%  { transform: translate(6px, -4px) rotate(-1.5deg); }
-          40%  { transform: translate(-5px, 3px) rotate(1deg); }
-          60%  { transform: translate(4px, 5px) rotate(1.5deg); }
-          80%  { transform: translate(-6px, -3px) rotate(-1deg); }
+          8%   { transform: translate(2px, -2px) rotate(-1deg); }
+          16%  { transform: translate(-3px, 1px) rotate(1deg); }
+          24%  { transform: translate(2px, 2px) rotate(-0.5deg); }
+          32%  { transform: translate(-2px, -1px) rotate(1deg); }
+          40%  { transform: translate(3px, 1px) rotate(-1deg); }
+          48%  { transform: translate(-1px, -2px) rotate(0.5deg); }
+          56%  { transform: translate(1px, 2px) rotate(-1deg); }
+          64%  { transform: translate(-2px, 1px) rotate(1deg); }
+          72%  { transform: translate(2px, -1px) rotate(-0.5deg); }
+          80%  { transform: translate(-1px, 2px) rotate(1deg); }
+          88%  { transform: translate(1px, -2px) rotate(-1deg); }
           100% { transform: translate(0px, 0px) rotate(0deg); }
         }
       `}</style>
 
-      {/* Wordmark — a playful, gentle "bimble" using transform only (never
-          margin/position), so it never nudges the page's own scrollHeight —
-          that would fight the iframe auto-resize script the same way a
-          100vh height did earlier, and send the page into a growth loop. */}
+      {/* Wordmark — a fast, jittery "bee vibrating" wobble. Still transform
+          only (never margin/position), so it can't nudge the page's own
+          scrollHeight and re-trigger the iframe resize growth loop. */}
       <div style={{
         fontFamily: "'IM Fell English', 'Georgia', serif",
         fontStyle: 'italic',
         fontSize: 44,
         color: COLORS.ink,
         marginBottom: 40,
-        animation: 'kin260-bimble 11s ease-in-out infinite',
+        animation: 'kin260-bimble 0.4s linear infinite',
         display: 'inline-block',
       }}>
         Kin260
